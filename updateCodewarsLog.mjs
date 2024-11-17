@@ -13,7 +13,7 @@ async function fetchCodewarsData() {
 
 async function updateLog() {
   const data = await fetchCodewarsData();
-  const today = new Date().toISOString().split("T")[0];
+  const today = new Date().toLocaleDateString("en-CA"); // Format: YYYY-MM-DD
   const logEntry = `\n- **Date:** ${today}\n  - Total Challenges Completed: ${data.codeChallenges.totalCompleted}\n`;
 
   // Append to the markdown file
