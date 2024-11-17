@@ -1,0 +1,33 @@
+name: Update Codewars Challenges
+
+on:
+  schedule:
+    - cron: "0 0 * * *" # Runs daily at midnight UTC
+  workflow_dispatch: # Allow manual triggers
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Script to Update Log
+        run: node updateCodewarsLog.js
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "Your Name"
+          git config --global user.email "your-email@example.com"
+          git add codewars-progress.md
+          git commit -m "Update Codewars progress"
+          git push
